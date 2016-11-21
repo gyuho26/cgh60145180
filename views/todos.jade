@@ -1,0 +1,45 @@
+extends layout
+
+block content
+ 
+  .container
+    h7 1단계
+    h4 등록하실 숙소 유형은 무엇인가요?
+    .row
+      .col-md-4
+        .form
+            select.form-control(name='priority')
+              option(value='1') 집 전체
+              option(value='2', selected) 개인실
+              option(value='3') 다인실
+            ul.suggest-box
+      .col-md-4
+        .form
+            select.form-control(name='priority')
+              option(value='1', selected) 게스트 1명
+              option(value='2') 게스트 2명
+              option(value='3') 게스트 3명
+              option(value='4') 게스트 4명
+              option(value='5') 게스트 5명
+              option(value='6') 게스트 6명
+              option(value='7') 게스트 7명
+              option(value='8') 게스트 8명
+              option(value='9') 게스트 9명
+              option(value='10') 게스트 10명
+              option(value='11') 게스트 11명
+              option(value='12') 게스트 12명
+              option(value='13') 게스트 13명
+              option(value='14') 게스트 14명
+              option(value='15') 게스트 15명
+              option(value='16') 게스트 16명
+            ul.suggest-box
+    .row
+      .col-md-8
+        .form
+            input.form-control(type='text', id='q', size=20, placeholder='예) 강남구')
+            ul.suggest-box
+    .row
+      .col-md-1
+        .form
+          .actions
+          button.btn.btn-primary.btn-lg.btn-block 계속
