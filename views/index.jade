@@ -11,9 +11,10 @@ block content
       .col-md-3
          .form
             h4 위치
-            input.form-control(type='text', id='q', size=20, placeholder='나라')
+            input.form-control(type='text', id='q', size=20, placeholder='도시')
             ul.suggest-box
-      .col-md-3
+    
+      //.col-md-3
         .form-group
             h4 체크인(상) / 체크아웃(하)
             input.form-control(type='date', id='deadline', name='deadline',size=20, placeholder='체크인')
@@ -21,11 +22,11 @@ block content
         .form-group
             input.form-control(type='date', id='deadline', name='deadline',size=20, placeholder='체크아웃')
             ul.suggest-box
-      .col-md-2
+      //.col-md-2
         .form
             h4 인원
             select.form-control(name='priority')
-              option(value='1') 숙박 인원1명
+              option(value='1', selected) 숙박 인원1명
               option(value='2') 숙박 인원2명
               option(value='3') 숙박 인원3명
               option(value='4') 숙박 인원4명
@@ -40,13 +41,13 @@ block content
               option(value='13') 숙박 인원13명
               option(value='14') 숙박 인원14명
               option(value='15') 숙박 인원15명
-              option(value='16', selected) 숙박 인원16+명
+              option(value='16') 숙박 인원16+명
             ul.suggest-box
       .col-md-2
-        h4 숙서 검색
+        h4 숙소 검색
         .actions
-            button.btn.btn-primary.btn-lg.btn-block 숙소 검색
+            a.button.btn.btn-primary.btn-lg.btn-block(href='/posts') 숙소 검색
         //.form
             button.fa.fa-search.fa-5x
             ul.suggest-box
-  
+      script(src='/javascripts/autocomplete.js')

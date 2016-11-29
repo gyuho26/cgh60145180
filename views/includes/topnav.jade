@@ -15,14 +15,14 @@
       ul.nav.navbar-nav.navbar-right
         if (!currentUser)
           li
-            a(href='/posts') Hosting
+            a(href='/posts/new') Hosting
           li
             a(href='/signin') Signin
           li
             a(href='/users/new') Signup
         else
           li
-            a(href='/posts') Hosting
+            a(href='/posts/new') Hosting
           li
             a(href='/users/#{currentUser._id}') Profile
           li
