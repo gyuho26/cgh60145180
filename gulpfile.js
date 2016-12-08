@@ -6,6 +6,7 @@ var jshint = require('gulp-jshint');
 var sass = require('gulp-sass');
 var nodemon = require('gulp-nodemon');
 var env = require('gulp-env');
+var concat = require('gulp-concat');
 
 // Lint Task
 gulp.task('lint', function() {
@@ -18,6 +19,7 @@ gulp.task('lint', function() {
 gulp.task('sass', function() {
     return gulp.src('scss/*.scss')
         .pipe(sass())
+        .pipe(concat('style.css'))
         .pipe(gulp.dest('public/stylesheets'));
 });
 

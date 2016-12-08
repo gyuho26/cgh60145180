@@ -1,35 +1,154 @@
-form.form-inline(action='/todos', method='POST', class='todos')
+form#form-task.form-inline(class='todos')
   .form
     .main
-      input(type='text', id='task', name='task', placeholder='해야할 일이 무엇인가요?')
+      input(type='text', id='content', name='content', placeholder='"제목(숙소명)_호스트명(이메일)"의 형식으로 예약해주세요')
     .sub
       .form-group
-        input.form-control(type='text', id='category', name='category', placeholder='분류')
+        select.form-control(name='category')
+          option(value='개인', selected) 개인
+          option(value='가족') 가족
+          option(value='업무') 업무
+          option(value='기타') 기타
       .form-group
         select.form-control(name='priority')
-          option(value='1') 중요
+          option(value='3') 중요
           option(value='2', selected) 보통
-          option(value='3') 사소
-      .form-group
-        input.form-control(type='date', id='deadline', name='deadline')
+          option(value='1') 사소
   .actions
-      button.btn.btn-primary.btn-lg.btn-block(type='submit') 저장
+      button#post-task.btn.btn-primary.btn-lg.btn-block(type='button') 저장
 
 ul.tasks
-  each task in tasks
-    li.task(data-id='#{task._id}')
-      span.check
-      span.content= task.content
-      if task.category
-        span.label.label-default.category= task.category
-      span.priority(class='p#{task.priority}')
-        case task.priority
-          when 1
-            | 사소
-          when 2
-            | 보통
-          when 3
-            | 중요
-      if task.deadline
-        span.deadline= moment(task.deadline).format('YYYY-MM-DD')
+
+.no-task 
+  .alert.alert-info Task가 없습니다.
+script#task-template(type='text/template').
+  <li class='task <%= doneStr %>' data-id='<%= id %>'>
+    <span class='check'>
+      <i class='fa fa-check fa-lg'></i>
+    </span>
+    <span class='content'><%=content %></span>
+    <% if (category) { %>
+      <span class='label label-default category'> 
+        <%= category %>
+      </span>
+    <% } %>
+    <span class='priority p<%= priority %>'>
+      <%= (priority === 3) ? "중요" : ((priority === 1) ? "사소": "보통") %>
+    </span>
+    <a href='#' class='remove'><i class='fa fa-trash-o'></i></a>
+  </li>
+      
+script.
+  $(function() {
+    var todo = new TaskController();    
+  });
+
+//- form#form-task.form-inline(class='todos')
+//-   .form
+//-     .main
+//-       input(type='text', id='content', name='content', placeholder='예약할 숙소의 호스트명(이메일)을 입력해주세요')
+//-       input(type='text', id='content', name='content', placeholder='예약할 숙소의 제목(숙소명)을 입력해주세요')
+//-     .sub
+//-       .form-group
+//-             h4 체크인
+//-             input.form-control(type='date', id='deadline', name='deadline',size=20, placeholder='체크인')
+//-             ul.suggest-box
+//-       .form-group
+//-             h4 체크아웃
+//-             input.form-control(type='date', id='deadline', name='deadline',size=20, placeholder='체크아웃')
+//-             ul.suggest-box
+//-       .form-group
+//-             h4 인원
+//-             select.form-control(name='priority')
+//-               option(value='1', selected) 숙박 인원1명
+//-               option(value='2') 숙박 인원2명
+//-               option(value='3') 숙박 인원3명
+//-               option(value='4') 숙박 인원4명
+//-               option(value='5') 숙박 인원5명
+//-               option(value='6') 숙박 인원6명
+//-               option(value='7') 숙박 인원7명
+//-               option(value='8') 숙박 인원8명
+//-               option(value='9') 숙박 인원9명
+//-               option(value='10') 숙박 인원10명
+//-               option(value='11') 숙박 인원11명
+//-               option(value='12') 숙박 인원12명
+//-               option(value='13') 숙박 인원13명
+//-               option(value='14') 숙박 인원14명
+//-               option(value='15') 숙박 인원15명
+//-               option(value='16') 숙박 인원16+명
+//-             ul.suggest-box
+//-       //.form-group
+//-         select.form-control(name='category')
+//-           option(value='개인', selected) 개인
+//-           option(value='가족') 가족
+//-           option(value='업무') 업무
+//-           option(value='기타') 기타
+//-       //.form-group
+//-         select.form-control(name='priority')
+//-           option(value='3') 중요
+//-           option(value='2', selected) 보통
+//-           option(value='1') 사소
+//-   .actions
+//-       button#post-task.btn.btn-primary.btn-lg.btn-block(type='button') 저장
+
+//- ul.tasks
+
+//- .no-task 
+//-   .alert.alert-info Task가 없습니다.
+//- script#task-template(type='text/template').
+//-   <li class='task <%= doneStr %>' data-id='<%= id %>'>
+//-     <span class='check'>
+//-       <i class='fa fa-check fa-lg'></i>
+//-     </span>
+//-     <span class='content'><%=content %></span>
+//-     <% if (category) { %>
+//-       <span class='label label-default category'> 
+//-         <%= category %>
+//-       </span>
+//-     <% } %>
+//-     <span class='priority p<%= priority %>'>
+//-       <%= (priority === 3) ? "중요" : ((priority === 1) ? "사소": "보통") %>
+//-     </span>
+//-     <a href='#' class='remove'><i class='fa fa-trash-o'></i></a>
+//-   </li>
+      
+//- script.
+//-   $(function() {
+//-     var todo = new TaskController();    
+//-   });
+
+//- form.form-inline(action='/todos', method='POST', class='todos')
+//-   .form
+//-     .main
+//-       input(type='text', id='task', name='task', placeholder='해야할 일이 무엇인가요?')
+//-     .sub
+//-       .form-group
+//-         input.form-control(type='text', id='category', name='category', placeholder='분류')
+//-       .form-group
+//-         select.form-control(name='priority')
+//-           option(value='1') 중요
+//-           option(value='2', selected) 보통
+//-           option(value='3') 사소
+//-       .form-group
+//-         input.form-control(type='date', id='deadline', name='deadline')
+//-   .actions
+//-       button.btn.btn-primary.btn-lg.btn-block(type='submit') 저장
+
+//- ul.tasks
+//-   each task in tasks
+//-     li.task(data-id='#{task._id}')
+//-       span.check
+//-       span.content= task.content
+//-       if task.category
+//-         span.label.label-default.category= task.category
+//-       span.priority(class='p#{task.priority}')
+//-         case task.priority
+//-           when 1
+//-             | 사소
+//-           when 2
+//-             | 보통
+//-           when 3
+//-             | 중요
+//-       if task.deadline
+//-         span.deadline= moment(task.deadline).format('YYYY-MM-DD')
       

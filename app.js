@@ -8,10 +8,16 @@ var session = require('express-session');
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
 var mongoose   = require('mongoose');
+var passport = require('passport');
+var configAuth = require('./config/auth');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var posts = require('./routes/posts');
+var todos = require('./routes/todos'),
+    tasks = require('./routes/tasks');
+
+var routeAuth = require('./routes/auth');
 
 var app = express();
 
@@ -46,15 +52,27 @@ app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(path.join(__dirname, '/bower_components')));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(function(req, res, next) {
   res.locals.currentUser = req.session.user;
   res.locals.flashMessages = req.flash();
   next();
 });
 
+configAuth(passport);
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/posts', posts);
+app.use('/todos', todos);
+app.use('/tasks', tasks);
+routeAuth(app, passport);
+//app.use('/todos', todos);
+//app.use('/tasks', tasks);
+//app.use('/reservation', reservation);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

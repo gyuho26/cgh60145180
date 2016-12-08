@@ -9,26 +9,28 @@ block content
 
     form(action = (post.id) ? "/posts/#{post.id}?_method=PUT" : "/posts", method='POST')
       .form-group
-        label(for='title') 제목
+        label(for='email') 호스트명(이메일)
+        input.form-control(type='email', id='email', name='email', placeholder='Email', value=post.email)
+      .form-group
+        label(for='title') 제목(숙소명)
         input.form-control(type='text', id='title', name='title', placeholder='title', value=post.title)
       .form-group
         label(for='content') 간단한 설명
-        textarea.form-control(id='content', rows='10', name='content', placeholder='content here')= post.content
-        
+        textarea.form-control(id='content', rows='10', name='content', placeholder='content here')= post.content 
       .form-group
-        label(for='title') 도시
+        label(for='city') 도시
         input.form-control(type='city', id='city', name='city', placeholder='city', value=post.city)
       .form-group
-        label(for='title') 주소
+        label(for='address') 주소
         input.form-control(type='address', id='address', name='address', placeholder='address', value=post.address)
       .form-group
-        label(for='title') 숙소요금
+        label(for='cash') 숙소요금
         input.form-control(type='cash', id='cash', name='cash', placeholder='cash', value=post.cash)
       .form-group
-        label(for='content') 편의 시설
+        label(for='facilities') 편의 시설
         textarea.form-control(id='facilities', rows='10', name='facilities', placeholder='facilities')= post.facilities
       .form-group
-        label(for='content') 이용 규칙
+        label(for='rule') 이용 규칙
         textarea.form-control(id='rule', rows='10', name='rule', placeholder='rule')= post.rule
       
 

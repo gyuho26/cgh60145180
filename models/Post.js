@@ -3,13 +3,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var schema = new Schema({
-  title: {type: String, required: true, trim: true},
   email: {type: String, required: true, trim: true},
-  password: {type: String},
+  title: {type: String, required: true, trim: true},
+  createdAt: {type: Date, default: Date.now},
+  //password: {type: String},
   content: {type: String, required: true, trim: true},
   read: {type: Number, default: 0},  
-  createdAt: {type: Date, default: Date.now},
-  
   city:{type: String, required: true, trim: true},
   address: {type: String, required: true, trim: true},
   cash: {type: Number, default: 0},
