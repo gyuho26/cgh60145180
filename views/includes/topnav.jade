@@ -10,26 +10,27 @@
         i.fa.fa-home
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav
-        li
+        //li
+          a(href='/todos') Todo List
+        //li
           a(href='/users') Users
-          
+      ul.nav.navbar-nav.navbar-left
+        if (currentUser)
+          li
+            a(href='/users') Users
       ul.nav.navbar-nav.navbar-right
-        if (!currentUser)
-          li
+        if (currentUser)
+          //li
             a(href='/todos') 예약
           li
-            a(href='/posts/new') Hosting
-          li
-            a(href='/signin') Signin
-          li
-            a(href='/users/new') Signup
-        else
-          li
-            a(href='/todos') 예약
-          li
-            a(href='/posts/new') Hosting
+            a(href='/posts/new') 호스팅
           li
             a(href='/users/#{currentUser._id}') Profile
           li
             a(href='/signout') Signout
+        else
+          li
+            a(href='/signin') Signin
+          li
+            a(href='/users/new') Signup
           

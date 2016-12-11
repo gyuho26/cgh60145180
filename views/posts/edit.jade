@@ -5,34 +5,35 @@ block content
     if post.id
       h1.page-header 글수정
     else
-      h1.page-header 숙소 기본 정보
+      h1.page-header 호스팅
 
     form(action = (post.id) ? "/posts/#{post.id}?_method=PUT" : "/posts", method='POST')
       .form-group
         label(for='email') 호스트명(이메일)
         input.form-control(type='email', id='email', name='email', placeholder='Email', value=post.email)
+        //label(for='password') Password
+        //input.form-control(type='password', id='password', name='password', placeholder='Password')
       .form-group
         label(for='title') 제목(숙소명)
         input.form-control(type='text', id='title', name='title', placeholder='title', value=post.title)
       .form-group
         label(for='content') 간단한 설명
-        textarea.form-control(id='content', rows='10', name='content', placeholder='content here')= post.content 
+        textarea.form-control(id='content', rows='1', name='content', placeholder='explain here')= post.content
       .form-group
         label(for='city') 도시
-        input.form-control(type='city', id='city', name='city', placeholder='city', value=post.city)
+        textarea.form-control(id='city', rows='1', name='city', placeholder='city here')= post.city
       .form-group
-        label(for='address') 주소
-        input.form-control(type='address', id='address', name='address', placeholder='address', value=post.address)
+        label(for='adress') 주소
+        textarea.form-control(id='adress', rows='1', name='adress', placeholder='adress here')= post.adress
       .form-group
-        label(for='cash') 숙소요금
-        input.form-control(type='cash', id='cash', name='cash', placeholder='cash', value=post.cash)
+        label(for='fee') 숙소 요금
+        textarea.form-control(id='fee', rows='1', name='fee', placeholder='fee here')= post.fee
       .form-group
-        label(for='facilities') 편의 시설
-        textarea.form-control(id='facilities', rows='10', name='facilities', placeholder='facilities')= post.facilities
+        label(for='facility') 편의시설
+        textarea.form-control(id='facility', rows='1', name='facility', placeholder='facility here')= post.facility
       .form-group
         label(for='rule') 이용 규칙
-        textarea.form-control(id='rule', rows='10', name='rule', placeholder='rule')= post.rule
-      
+        textarea.form-control(id='rule', rows='1', name='rule', placeholder='rule here')= post.rule
 
       div.form-actions
         a.btn.btn-default(href='javascript:window.history.back();') 뒤로 

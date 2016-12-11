@@ -2,40 +2,34 @@ extends ../layout
 
 block content
   .container
-    h1.page-header 숙소 목록
-    .row
-      .col-md-3
-          .form
-              input.form-control(type='text', id='q', size=20, placeholder='원하는 도시 입력')
-              ul.suggest-box
-      .col-md-1
-          .actions
-              a.btn.btn-primary(href='/posts') 검색
-        
+    h1.page-header 숙소목록
+    
     table.table.table-bordered
       thead
         tr
           th 제목(숙소명)
+          th 도시
+          th 숙소 요금
           th 호스트명(이메일)
           th 날짜
           th 조회수
-          th
+          //th
       tbody
         each post in posts
           tr
             td
               a(href='/posts/#{post.id}')= post.title
+            td= post.city
+            td= post.fee
             td= post.email
             td= moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')
             td= post.read
             //td
-              a.btn.btn-xs.btn-default(href='/reservation') 예약
-            td
               a.btn.btn-xs.btn-default(href='/posts/#{post.id}/edit') 수정
               | 
               a.btn.btn-xs.btn-default(data-id=post.id, class='delete') 삭제
 
-    a.btn.btn-primary(href='/todos') 예약
+    a.btn.btn-primary(href='/todos') 예약요청
 
     //- 아래의 Pagination 부분은 만들 수 있다면 추가 점수 부여합니다. 
     //- 못하겠으면 빼도 좋아요.              

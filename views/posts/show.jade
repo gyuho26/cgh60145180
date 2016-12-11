@@ -9,11 +9,17 @@ block content
       span at #{moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')} 
       | 
       | (조회수 #{post.read})
+     h3 설명
     p.well(style='white-space:pre;')= post.content
+     h3 도시
     p.well(style='white-space:pre;')= post.city
-    p.well(style='white-space:pre;')= post.address
-    p.well(style='white-space:pre;')= post.cash
-    p.well(style='white-space:pre;')= post.facilities
+     h3 주소
+    p.well(style='white-space:pre;')= post.adress
+     h3 요금
+    p.well(style='white-space:pre;')= post.fee
+     h3 시설
+    p.well(style='white-space:pre;')= post.facility
+     h3 규칙
     p.well(style='white-space:pre;')= post.rule
     
     a.btn.btn-default(href='/posts') 목록

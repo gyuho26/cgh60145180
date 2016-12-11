@@ -11,11 +11,11 @@ var mongoose   = require('mongoose');
 var passport = require('passport');
 var configAuth = require('./config/auth');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var posts = require('./routes/posts');
-var todos = require('./routes/todos'),
+var routes = require('./routes/index'),
+    users = require('./routes/users'),
+    todos = require('./routes/todos'),
     tasks = require('./routes/tasks');
+var posts = require('./routes/posts');
 
 var routeAuth = require('./routes/auth');
 
@@ -30,7 +30,6 @@ if (app.get('env') === 'development') {
 app.locals.moment = require('moment');
 
 // mongodb connect
-// 아래 DB접속 주소는 꼭 자기 것으로 바꾸세요!
 mongoose.connect('mongodb://gyuho:12345*@ds143737.mlab.com:43737/mju_cs');
 mongoose.connection.on('error', console.log);
 
@@ -48,15 +47,15 @@ app.use(session({
   secret: 'long-long-long-secret-string-1313513tefgwdsvbjkvasd'
 }));
 app.use(flash());
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(path.join(__dirname, '/bower_components')));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req, res, next) {
-  res.locals.currentUser = req.session.user;
+  res.locals.currentUser = req.user;
   res.locals.flashMessages = req.flash();
   next();
 });
@@ -65,14 +64,10 @@ configAuth(passport);
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/posts', posts);
 app.use('/todos', todos);
 app.use('/tasks', tasks);
+app.use('/posts', posts);
 routeAuth(app, passport);
-//app.use('/todos', todos);
-//app.use('/tasks', tasks);
-//app.use('/reservation', reservation);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

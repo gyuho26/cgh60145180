@@ -5,19 +5,18 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var sass = require('gulp-sass');
 var nodemon = require('gulp-nodemon');
-var env = require('gulp-env');
 var concat = require('gulp-concat');
 
 // Lint Task
 gulp.task('lint', function() {
-    return gulp.src(['app.js', 'routes/**/*.js', 'models/**/*.js'])
+    return gulp.src(['app.js', 'routes/**/*.js', 'models/**/*.js', 'config/**/*.js', 'public/javascripts/**/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
 
 // Compile Our Sass
 gulp.task('sass', function() {
-    return gulp.src('scss/*.scss')
+    return gulp.src(['scss/*.scss'])
         .pipe(sass())
         .pipe(concat('style.css'))
         .pipe(gulp.dest('public/stylesheets'));
@@ -31,11 +30,14 @@ gulp.task('watch', function() {
 gulp.task('nodemon', function (cb) {
   var started = false;
   return nodemon({
-    script: 'bin/www',
-    ext: 'js jade html',
-    env: {DEBUG: "wpp:server"}
-  }).on('restart', function () {
-    console.log('restarted!');
+    script: 'bin/www'
+  }).on('start', function () {
+    // to avoid nodemon being started multiple times
+    // thanks @matthisk
+    if (!started) {
+      cb();
+      started = true;
+    }
   });
 });
 
